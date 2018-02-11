@@ -1,6 +1,11 @@
 body {
   font-family: 'Lato', sans-serif;
   background: #242424;
+  color: #ddd;
+  @media only screen and (min-width : 992px) {
+    height: 100vh;
+    overflow: hidden;
+  }
 }
 
 $time: 1000ms;
@@ -8,22 +13,53 @@ $ease: ease;
 
 .container{
   height: 90vh;
+  @media (min-width: 1400px){
+    width: 1400px;
+  }
+}
+
+.client-logo{
+  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  right: 0;
+  z-index: 99;
+  height: 100px;
+  img{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto 10px;
+  }
+  transition: bottom 333ms;
+  .card--active &{
+    bottom: 40px;
+  }
 }
 
 .card{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 200px;
+  height: 60vh;
   transition: width $time $ease, 
   top $time $ease,
   left $time $ease,
   //filter $time $ease,
   height $time $ease;
+  position: relative;
 
   ~.card{
     visibility: hidden;
     position: absolute;
+    z-index: 999;
   }
   &--active{
     position: absolute;
@@ -44,12 +80,57 @@ $ease: ease;
   visibility: visible;
   
   .btn-close{
-    position: fixed;
-    top: 10px;
-    right: 10px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     z-index: 10;
+    cursor: pointer;
+    opacity: .8;
+    &:hover{
+      opacity: 1;
+    }
   }
 
+}
+
+article{
+  padding-top: 10vh;
+  padding-left: 1em;
+  padding-right: 1em;
+  @media only screen and (min-width : 992px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}
+.article-text{
+  text-align: center;
+  margin: 2em 0 3em;
+  p{
+    font-size: 20px;
+    text-align: left;
+  }
+}
+
+video, iframe{
+  width: calc(100vw - (100vw - 100%));
+  height: calc(100vh - (100vh - 100%));
+  background: black;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 333ms;
+
+  // width: calc(80vw - (100vw - 100%));
+  // height: calc(80vh - (100vh - 100%));
+  // transform: translate(-50%, -50%);
+  // top: 50%;
+  // left: 50%;
+  // position: absolute;
+
+  .card--active &{
+    visibility: visible;
+    opacity: 1;
+  }
 }
 
 .u-visible{
@@ -62,6 +143,9 @@ $ease: ease;
   > *{
     padding-bottom: 30px;
     position: inherit;
+    .card:first-child{
+      cursor: pointer;
+    }
   }
 }
 
@@ -72,6 +156,20 @@ footer{
   width: 100%;
   height: 10vh;
   text-align: center;
+  img{
+    width: 150px;
+  }
+}
+
+header{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 100%;
+  height: 10vh;
+  text-align: center;
+  z-index: 9;
+  opacity: .75;
   img{
     width: 150px;
   }
@@ -88,10 +186,16 @@ footer{
 .card{
   > .slider{
     visibility: hidden;
+    opacity: 0;
+    height: 100px;
+    overflow: hidden;
+    transition: opacity 333ms;
   }
   &.slider-ready{
     > .slider{
       visibility: visible;
+      height: auto;
+      opacity: 1;
     }
   }
 }
@@ -100,6 +204,8 @@ footer{
   .slick-prev,
   .slick-next{
     z-index: 15;
+    width: 80px;
+    height: 80px;
   }
 
   .slick-next{
@@ -118,4 +224,54 @@ footer{
   .slick-dots li.slick-active button:before{
     color: #fff;
   }
+  .slick-prev:before, .slick-next:before{
+    font-size: 80px;
+  }
+  .slick-dots li button:before{
+    font-size: 8px;
+  }
+}
+
+h5{
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 8px;
+  color: #fff;
+}
+
+.card-details{
+  color: #fff;
+  text-shadow: #242424 2px 2px 2px;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 25;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 333ms;
+  width: 80%;
+  left: 0;
+  right: 0;
+  >*{
+    margin-top: 0;
+  }
+  .card--active &{
+    visibility: visible;
+    opacity: 1;
+  }
+  h3{
+    font-size: 32px;
+  }
+}
+
+.icon {
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+  stroke-width: 0;
+  fill: #fff;
+  opacity: .8;
+  filter: drop-shadow(0px 0px 10px rgba(0,0,0,.5));
 }

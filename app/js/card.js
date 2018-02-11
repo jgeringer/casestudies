@@ -26,16 +26,25 @@ function card() {
 
         setTimeout(function(){
             cardClone.addClass('card--active')
-            let $close = $('<button class="btn-close">CLOSE</button>')
+            let $close = $('<div class="btn-close"><svg class="icon icon-cross"><use xlink:href="#icon-cross"></use></svg></div>')
             $close.prependTo(cardClone)
 
             //after the animation is done, then add the slider
-            setTimeout(function(){
-                cardClone.addClass('slider-ready')
-                cardClone.find('.single-item').slick({
-                    dots: true
-                });
-            }, 1500)            
+            if (!!cardClone.find('.single-item').length) {
+                setTimeout(function(){
+                    cardClone.addClass('slider-ready')
+                    cardClone.find('.single-item').slick({
+                        dots: true
+                    });
+                }, 1000)
+            } else if(!!cardClone.find('video').length){
+                setTimeout(function(){
+                    let vid = cardClone.find('video')[0]
+                    vid.play()
+                }, 500)
+            } else if(!!cardClone.find('iframe').length){
+                console.log('iframe')
+            } 
 
         },2)
         
@@ -46,6 +55,10 @@ function card() {
         let $this = $(this)
         let $card = $this.parent()
         $this.remove()
+
+        console.warn($card.find('.single-item').slick('slickCurrentSlide'))
+
+        let timer = ($card.find('.single-item').slick('slickCurrentSlide') === 0 ? 0 : 500) 
 
         $card.find('.single-item').slick('slickGoTo', 0)
 
@@ -58,9 +71,7 @@ function card() {
             setTimeout(function(){
                 $card.remove();
             },1000);
-        }, 500)
-
-        
+        }, timer)       
         
     });
 
