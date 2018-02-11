@@ -1,3 +1,6 @@
+import $ from 'jquery'
+import 'slick-carousel'
+
 function card() {
     console.log('card me');
 
@@ -25,6 +28,15 @@ function card() {
             cardClone.addClass('card--active')
             let $close = $('<button class="btn-close">CLOSE</button>')
             $close.prependTo(cardClone)
+
+            //after the animation is done, then add the slider
+            setTimeout(function(){
+                cardClone.addClass('slider-ready')
+                cardClone.find('.single-item').slick({
+                    dots: true
+                });
+            }, 1500)            
+
         },2)
         
     })
@@ -35,15 +47,24 @@ function card() {
         let $card = $this.parent()
         $this.remove()
 
-        $card.removeClass('card--active')
-        $card.addClass('u-visible')
-        
+        $card.find('.single-item').slick('slickGoTo', 0)
+
         setTimeout(function(){
-            $card.remove();
-        },1000);
+            $card.removeClass('card--active')
+            $card.removeClass('slider-ready')
+            $card.find('.single-item').slick('unslick');
+            $card.addClass('u-visible')
+            
+            setTimeout(function(){
+                $card.remove();
+            },1000);
+        }, 500)
+
+        
         
     });
 
+        
 
   }
   

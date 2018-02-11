@@ -47,6 +47,7 @@ $ease: ease;
     position: fixed;
     top: 10px;
     right: 10px;
+    z-index: 10;
   }
 
 }
@@ -73,5 +74,48 @@ footer{
   text-align: center;
   img{
     width: 150px;
+  }
+}
+
+.card-slide{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.card{
+  > .slider{
+    visibility: hidden;
+  }
+  &.slider-ready{
+    > .slider{
+      visibility: visible;
+    }
+  }
+}
+
+.card{
+  .slick-prev,
+  .slick-next{
+    z-index: 15;
+  }
+
+  .slick-next{
+    right: 20px;
+  }
+  
+  .slick-prev{
+    left: 20px;
+  }
+  .slick-dots{
+    bottom: 15px;
+  }
+  .slick-dots li button:before{
+    color: #fff;
+  }
+  .slick-dots li.slick-active button:before{
+    color: #fff;
   }
 }
